@@ -3,22 +3,34 @@ require_once("config.php");
 
 class Database{
 
-	protected $db_conn;
-	public $db_name = DB_NAME;
-	public $db_user = DB_USER;
-	public $db_pass = DB_PASS;
-	public $db_host = DB_HOST;
+	protected static $db;
+	 
+	//private construct - class cannot be instatiated externally.
+	private function __construct() {
 
-	function  connect(){
-		try{
-			$this->db_conn =new PDO("mysql:host=$this->db_host;dbname=$this->db_name",$this->db_user,$this->db_pass);
-			return $this->db_conn;
+		try {
+		
+			self::$db = new PDO( 'mysql:host='.DB_HOST.';dbname='.DB_NAME, DB_USER, DB_PASS );
+			self::$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+		
+		}catch (PDOException $e) {
+			
+			echo "Connection Error: " . $e->getMessage();
 		}
-		catch(PDOException $e){
-				return $e->getMessage();
-		}
-
+	 
 	}
+	 
+
+	public static function getInstance() {
+		 
+		if (!self::$db) {
+			//new connection object.
+			new Database();
+		}
+		 
+		//return connection.
+		return self::$db;
+	}	
 
 }
 

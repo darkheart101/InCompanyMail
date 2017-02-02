@@ -1,19 +1,27 @@
 <?php
 	require_once("class.database.php");
+	require_once("config.php");
+	
+	$db_name = DB_NAME;
 
-	$database = new Database();
-
-	$link = $database->connect();
+	$database = Database::getInstance();
 	
 	$query = "
-		CREATE TABLE `icmail`.`users` (
-		  `idusers` INT NOT NULL,
-		  `username` VARCHAR(45) NULL,
-		  `password` VARCHAR(45) NULL,
-		  PRIMARY KEY (`idusers`));
+
+		CREATE TABLE  IF NOT EXISTS  `$db_name`.`users` (
+			`idusers` INT NOT NULL,
+			`username` VARCHAR(45) NULL,
+			`password` VARCHAR(45) NULL,
+			PRIMARY KEY (`idusers`)
+		);
+
+		INSERT INTO users(
+			username
+			,password
+		)VALUES('admin', MD5('admin'))
 	";
 
-	$link->prepare($query)->execute();
+	$database->prepare($query)->execute();
 
 	echo "<h1>Database changes ready</h1>";
 

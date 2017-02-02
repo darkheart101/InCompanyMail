@@ -2,7 +2,9 @@
 
 require_once("class.database.php");
 
-$database = new Database();
+//$database = new Database();
+
+$database = Database::getInstance();
 
 ?>
 <!DOCTYPE html>
