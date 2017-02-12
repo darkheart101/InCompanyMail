@@ -1,2 +1,3 @@
 http://culttt.com/2012/10/01/roll-your-own-pdo-php-class/
 http://weebtutorials.com/2012/03/pdo-connection-class-using-singleton-pattern/
+https://www.youtube.com/watch?v=ra0X0GKkuJ8
