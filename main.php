@@ -1,6 +1,10 @@
+<?php
+session_start();
+?>
+
 <html>
 	<head>
-		<title>InCompanyMail - Main</title>
+		<title>InCompanyMail - Main - <?php echo $_SESSION['username']; ?></title>
 		<link rel="stylesheet" href="./resources/css/main.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	</head>	
@@ -10,7 +14,7 @@
 		        <div class="col-sm-3 col-md-2">
 		            <div class="btn-group">
 		                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-		                    Mail <span class="caret"></span>
+		                    <?php echo $_SESSION['usermail']; ?> <span class="caret"></span>
 		                </button>
 		                <ul class="dropdown-menu" role="menu">
 		                    <li><a href="#">Mail</a></li>
@@ -20,6 +24,7 @@
 		            </div>
 		        </div>
 		        <div class="col-sm-9 col-md-10">
+		            <!--
 		            <div class="btn-group">
 		                <button type="button" class="btn btn-default">
 		                    <input type="checkbox" aria-label="..." style="margin:1px;">
@@ -36,6 +41,7 @@
 		                    <li><a href="#">Unstarred</a></li>
 		                </ul>
 		            </div>
+		            -->
 		            <button type="button" class="btn btn-default" data-toggle="tooltip" title="Refresh">
 		                <span class="glyphicon glyphicon-refresh"></span> </button>
 		            <div class="btn-group">

@@ -40,10 +40,41 @@
 	$count = $stmt->rowCount();
 	
 	if($count == 1){ 
+
+		//START SESSION
+		session_start();
+
+		//Get values from db for the user
+		$query = "
+			SELECT
+				iduser
+				,username
+				,usermail
+			FROM
+				users
+			WHERE
+				username = :username
+				AND
+				password=:password
+		";
+
+		$args = array(
+			":username" => $username
+			,":password" => $password
+		);
+
+		$stmt->execute($args);
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+		//Give SESSION values
+		$_SESSION['username'] = $row['username'];
+		$_SESSION['usermail'] = $row['usermail'];
+	
 		//when username and password are correct
 		$results['response'] = "success";
-		
+			
 		echo json_encode($results);
+
 		return;	
 	
 	}else{

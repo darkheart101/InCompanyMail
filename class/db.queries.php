@@ -1,5 +1,5 @@
 <?php
-	require_once($_SERVER['DOCUMENT_ROOT']."/incompanymail/class.database.php");
+	require_once($_SERVER['DOCUMENT_ROOT']."/incompanymail/class/class.database.php");
 	require_once($_SERVER['DOCUMENT_ROOT']."/incompanymail/config.php");
 	
 	$db_name = DB_NAME;
@@ -22,6 +22,37 @@
 	";
 
 	$database->prepare($query)->execute();
+
+	$query = "
+		SELECT 
+			IFNULL(column_name, '') INTO @colName
+		FROM information_schema.columns 
+		WHERE table_name = 'users'
+		AND column_name = 'usermail';
+
+		IF @colName = '' THEN 
+			ALTER TABLE users ADD usermail VARCHAR(50) NOT NULL
+		END IF;	
+	";
+
+	$database->prepare($query)->execute();	
+
+	$query = "
+		SELECT 
+			IFNULL(usermail, '') INTO @adminMail
+		FROM users
+		WHERE idusers = 0;
+		
+		IF @adminMail = '' THEN
+			BEGIN
+			UPDATE users SET
+				usermail = 'admin@admin.icm'
+			WHERE idusers = 0
+			END
+		END IF
+	";
+
+	$database->prepare($query)->execute();	
 
 	echo "<h1>Database changes ready</h1>";
 
