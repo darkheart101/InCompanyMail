@@ -117,17 +117,37 @@ session_start();
 		                                </td>
 		                                <td></td>
 		                            </tr>
+		                            <?php
+		                            	if($_SESSION['mailsums'] == 0){
+		                            		echo '
+						                            <tr>
+						                                <td>
+						                                	<b>You have no emails</b>
+						                                </td>
+						                            </tr>
+
+						                        ';
+		                            	}else{
+			                            	for($i = 0; $i<$_SESSION['mailsums']; $i++){
+			                            		echo '
+					                            <!-- inbox item -->
+						                            <tr>
+						                                <td>
+						                                    <label>
+						                                        <input type="checkbox">
+						                                    </label> <span class="name">Mark Otto</span></td>
+						                                <td><span class="subject">Nice work on the docs for lastest version</span> <small class="text-muted">- Joe, I just reviewed the last...</small></td>
+						                                <td><span class="badge">12:10 AM</span> <span class="pull-right glyphicon glyphicon-paperclip"></span></td>
+						                            </tr>
+			                            		';
+
+			                            	}		                            		
+		                            	}
+
+		                            ?>
+	
 		                            <!-- inbox item -->
-		                            <tr>
-		                                <td>
-		                                    <label>
-		                                        <input type="checkbox">
-		                                    </label> <span class="name">Mark Otto</span></td>
-		                                <td><span class="subject">Nice work on the docs for lastest version</span> <small class="text-muted">- Joe, I just reviewed the last...</small></td>
-		                                <td><span class="badge">12:10 AM</span> <span class="pull-right glyphicon glyphicon-paperclip"></span></td>
-		                            </tr>
-		                            <!-- inbox item -->
-		                            <tr>
+		                            <!--<tr>
 		                                <td>
 		                                    <label>
 		                                        <input type="checkbox">
@@ -135,7 +155,6 @@ session_start();
 		                                <td><span class="subject">GAE Project</span> <small class="text-muted">- Can you take a second to look..</small></td>
 		                                <td><span class="badge badge-inverse">11:33 AM</span> <span class="pull-right glyphicon glyphicon-warning-sign text-danger"></span></td>
 		                            </tr>
-		                            <!-- inbox item -->
 		                            <tr class="unread">
 		                                <td>
 		                                    <label>
@@ -144,7 +163,6 @@ session_start();
 		                                <td><span class="subject">Vacation pics</span> <small class="text-muted">(this message contains images)</small></td>
 		                                <td><span class="badge">11:13 AM</span> <span class="pull-right"></span></td>
 		                            </tr>
-		                            <!-- inbox item -->
 		                            <tr>
 		                                <td>
 		                                    <label>
@@ -153,7 +171,6 @@ session_start();
 		                                <td><span class="subject">Last call for this weekend</span> <small class="text-muted">- Hi Joe, Thanks for sending over those..</small></td>
 		                                <td><span class="badge">11:05 AM</span> <span class="pull-right"></span></td>
 		                            </tr>
-		                            <!-- inbox item -->
 		                            <tr>
 		                                <td>
 		                                    <label>
@@ -162,7 +179,6 @@ session_start();
 		                                <td><span class="subject">Meeting with Simco</span> <small class="text-muted">- Joe I included your contact info for the...</small></td>
 		                                <td><span class="badge">10:54 AM</span> <span class="pull-right glyphicon glyphicon-paperclip"></span></td>
 		                            </tr>
-		                            <!-- inbox item -->
 		                            <tr>
 		                                <td>
 		                                    <label>
@@ -171,6 +187,7 @@ session_start();
 		                                <td><span class="subject">FYI: New Release</span> <small class="text-muted">this message is high priority</small></td>
 		                                <td><span class="badge">9:58 AM</span> <span class="pull-right"></span></td>
 		                            </tr>
+		                            -->
 		                        </tbody>
 		                    </table>
 		                </div>

@@ -41,13 +41,16 @@
 	
 	if($count == 1){ 
 
+		//when username and password are correct
+		$results['response'] = "success";
+
 		//START SESSION
 		session_start();
 
 		//Get values from db for the user
 		$query = "
 			SELECT
-				iduser
+				idusers
 				,username
 				,usermail
 			FROM
@@ -55,23 +58,49 @@
 			WHERE
 				username = :username
 				AND
-				password=:password
+				password= :password
 		";
 
 		$args = array(
 			":username" => $username
 			,":password" => $password
 		);
+		$stmt = $database->prepare($query);
+		
+		$stmt->execute($args);
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		//Give SESSION values
+		$_SESSION['username'] 	= $row['username'];
+		$_SESSION['usermail'] 	= $row['usermail'];
+		$_SESSION['idusers'] 	= $row['idusers'];
+
+		//***********************************
+		// START - Check the number of emails
+		//***********************************
+
+		$query = "
+			SELECT
+				COUNT(idmail) as mailsums
+			FROM
+				receivedemails
+			WHERE
+				iduser = :iduser
+		";
+		$stmt = $database->prepare($query);
+
+		$args = array(
+			":iduser" => $_SESSION['idusers']
+		);
 
 		$stmt->execute($args);
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
-		
-		//Give SESSION values
-		$_SESSION['username'] = $row['username'];
-		$_SESSION['usermail'] = $row['usermail'];
-	
-		//when username and password are correct
-		$results['response'] = "success";
+		$_SESSION['mailsums'] = $row['mailsums'];
+
+		//*********************************
+		// END - Check the number of emails
+		//*********************************
+
 			
 		echo json_encode($results);
 
