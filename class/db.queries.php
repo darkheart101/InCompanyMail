@@ -2,29 +2,30 @@
 	require_once($_SERVER['DOCUMENT_ROOT']."/incompanymail/class/class.database.php");
 	require_once($_SERVER['DOCUMENT_ROOT']."/incompanymail/config.php");
 	session_start();
-	
-	if($_SESSION['idusers'] == 0){
+
+
 		$db_name = DB_NAME;
 
-			$database = Database::getInstance();
+		$database = Database::getInstance();
 			
-			$query = "
+		$query = "
 
-				CREATE TABLE  IF NOT EXISTS  `$db_name`.`users` (
-					`idusers` INT NOT NULL,
-					`username` VARCHAR(45) NULL,
-					`password` VARCHAR(45) NULL,
-					PRIMARY KEY (`idusers`)
-				);
+			CREATE TABLE  IF NOT EXISTS  `$db_name`.`users` (
+				`idusers` INT NOT NULL,
+				`username` VARCHAR(45) NULL,
+				`password` VARCHAR(45) NULL,
+				PRIMARY KEY (`idusers`)
+			);
 
-				INSERT INTO users(
-					username
-					,password
-				)VALUES('admin', MD5('admin'))
-			";
+			INSERT INTO users(
+				username
+				,password
+			)VALUES('admin', MD5('admin'))
+		";
 
-			$database->prepare($query)->execute();
-
+		$database->prepare($query)->execute();
+		
+		if($_SESSION['idusers'] == 0){
 			$query = "
 				SELECT 
 					IFNULL(column_name, '') INTO @colName
@@ -57,16 +58,17 @@
 			$database->prepare($query)->execute();
 
 			$query = "
-				CREATE TABLE  IF NOT EXISTS  `icmail`.`ReceivedEmails` (
+				CREATE TABLE  IF NOT EXISTS  `$db_name`.`ReceivedEmails` (
 					`idmail` INT NOT NULL,
 					`iduser` INT NOT NULL,
-					`from` VARCHAR(50) NOT NULL,
+					`fromID` INT NOT NULL,
 					`msg` VARCHAR(255) NULL,
 					PRIMARY KEY (`idmail`)
 				);
 			";
 
 			$database->prepare($query)->execute();		
+
 
 			echo "<h1>Database changes ready</h1>";		
 		

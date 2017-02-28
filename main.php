@@ -7,6 +7,7 @@ session_start();
 		<title>InCompanyMail - Main - <?php echo $_SESSION['username']; ?></title>
 		<link rel="stylesheet" href="./resources/css/main.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	</head>	
 	<body>
 		<div class="container-fluid">
@@ -71,7 +72,8 @@ session_start();
 		    <div class="row">
 		        <!--left-->
 		        <aside class="col-sm-3 col-md-2">
-		            <a href="#" class="btn btn-danger btn-sm btn-block" role="button"><i class="glyphicon glyphicon-edit"></i> Compose</a>
+		            <!--<a href="#" class="btn btn-danger btn-sm btn-block" role="button"><i class="glyphicon glyphicon-edit"></i> Compose</a>-->
+		            <button type="button" class="btn btn-danger btn-sm btn-block" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-edit"></i> Compose</button>
 		            <hr>
 		            <ul class="nav nav-pills nav-stacked">
 		                <li class="active"><a href="#"><span class="badge pull-right">32</span> Inbox </a></li>
@@ -190,6 +192,47 @@ session_start();
 		                            -->
 		                        </tbody>
 		                    </table>
+
+
+							<!-- 
+							***	START ***
+							*	New Email Modal
+							*
+							 -->
+							<div id="myModal" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+
+							    
+									<div class="modal-content">
+							    		<div class="modal-header">
+							        		<button type="button" class="close" data-dismiss="modal">&times;</button>
+							        		<h4 class="modal-title">New Message</h4>
+							      		</div>
+							      		<div class="modal-body">
+							      		<form method="post" action="client/sendemail.php">
+											<fieldset class="form-group">
+												<label for="emailTo">To:</label>
+												<input type="text" name="emailTo">
+
+												<textarea class="form-control" name="editstatus" id="editstatus" rows="3"></textarea>
+											</fieldset>
+											<div class="modal-footer">
+												<button type="submit" class="btn btn-primary">Send</button>
+												<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+												
+												<input type="hidden" name="postide" id="postide" value="">
+											</div>
+										</form>							      		
+							    	</div>
+
+							  	</div>
+							</div>
+							<!-- 
+							***	END ***
+							*	New Email Modal
+							*
+							 -->							
+
 		                </div>
 		                <div class="tab-pane fade in" id="profile">
 		                    <div class="list-group">
