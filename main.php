@@ -207,19 +207,20 @@ session_start();
 							    		<div class="modal-header">
 							        		<button type="button" class="close" data-dismiss="modal">&times;</button>
 							        		<h4 class="modal-title">New Message</h4>
+							        		<div  id="error_msg"></div>
 							      		</div>
 							      		<div class="modal-body">
-							      		<form method="post" action="sendEmail.php">
+							      		<form id="sendform">
 											<fieldset class="form-group">
 												<label for="emailTo">To:</label>
-												<input type="text" name="emailTo">
+												<input id="emailTo" type="text" name="emailTo">
 
-												<textarea class="form-control" name="editstatus" id="editstatus" rows="3"></textarea>
+												<textarea id="emailMsg" class="form-control" name="editstatus" id="editstatus" rows="3"></textarea>
 											</fieldset>
 											<div class="modal-footer">
-												<button type="submit" class="btn btn-primary">Send</button>
+												<button id="send" type="submit"  class="btn btn-primary">Send</button>
 												<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-												<input type="hidden" name="_token" value="{{ Session::token() }}">
+												
 												<input type="hidden" name="postide" id="postide" value="">
 											</div>
 										</form>							      		
@@ -252,6 +253,39 @@ session_start();
 		        </div>
 		    </div>
 		</div>	
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script>
+			$('#sendform').submit(function() {
+				//Prevent default action
+				event.preventDefault();
+				
+				
+				var emailTo = $('#emailTo').val();
+				var emailMsg = $('#emailMsg').val();
+				//Ajax call
+				$.ajax({
+					url: 'client/sendemail.php',
+					type: 'POST',
+					data: {emailTo : emailTo, emailMsg : emailMsg},
+					dataType:'JSON',
+					success: function(resp){
+						
+						//if username and password are correct
+						if( resp.response == "success" ){
+							console.log("SUCCESS");
+							$("#myModal").modal("hide");
+							$('#emailTo').val('') ;
+							$('#emailMsg').val('') ;
+						}
+
+						if(resp.response == "fail"){
+							$('#error_msg').addClass('alert alert-danger');
+							$('#error_msg').html(resp.error_msg);
+						}
+
+					}
+				});//ajax	 
+			})
+		</script>
 	</body>
 </html>

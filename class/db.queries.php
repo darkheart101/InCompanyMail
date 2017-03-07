@@ -58,16 +58,17 @@
 			$database->prepare($query)->execute();
 
 			$query = "
-				CREATE TABLE  IF NOT EXISTS  `icmail`.`ReceivedEmails` (
-					`idmail` INT NOT NULL,
+				CREATE TABLE  IF NOT EXISTS  `$db_name`.`ReceivedEmails` (
+					`idmail` INT NOT NULL AUTO_INCREMENT,
 					`iduser` INT NOT NULL,
-					`from` VARCHAR(50) NOT NULL,
+					`fromID` INT NOT NULL,
 					`msg` VARCHAR(255) NULL,
 					PRIMARY KEY (`idmail`)
 				);
 			";
 
 			$database->prepare($query)->execute();		
+
 
 			echo "<h1>Database changes ready</h1>";		
 		
