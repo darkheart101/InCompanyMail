@@ -1,0 +1,3 @@
+1) Beautify the modal
+2) Reinitialize variables when modal closes (I've done it when response is success)
+3) Count the number of emails and bring them in the front
