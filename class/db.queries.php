@@ -71,11 +71,45 @@
 
 
 			$query = "
-				ALTER TABLE `$db_name`.`ReceivedEmails`
-				ADD subject VARCHAR(255) NULL;
+				SELECT 
+					IFNULL(column_name, '') INTO @colName
+				FROM information_schema.columns 
+				WHERE table_name = 'ReceivedEmails'
+				AND column_name = 'subject';
+
+				IF @colName = '' THEN 
+					ALTER TABLE ReceivedEmails ADD subject VARCHAR(255) NULL;
+				END IF;			
 			";		
 
 			$database->prepare($query)->execute();
+
+			$query = "
+				SELECT 
+					IFNULL(column_name, '') INTO @colName
+				FROM information_schema.columns 
+				WHERE table_name = 'users'
+				AND column_name = 'name';
+
+
+				IF @colName = '' THEN 
+					ALTER TABLE `$db_name`.`users` ADD name VARCHAR(45) NULL;
+				END IF;
+
+				SELECT 
+					IFNULL(column_name, '') INTO @colName
+				FROM information_schema.columns 
+				WHERE table_name = 'users'
+				AND column_name = 'lastname';
+
+				IF @colName = '' THEN 
+					ALTER TABLE `$db_name`.`users` ADD lastname VARCHAR(45) NULL;
+				END IF;
+
+
+			";		
+
+			$database->prepare($query)->execute();			
 
 
 			echo "<h1>Database changes ready</h1>";		
