@@ -56,8 +56,8 @@
 		echo $results;
 		return;
 	}
-
 	$iduser = $row['idusers']; // Receiver UserID
+	$email->receiveEmails($iduser);
 
 	$fromID = $_SESSION['idusers']; // Sender UserID
 

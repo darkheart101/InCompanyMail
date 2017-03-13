@@ -38,6 +38,35 @@ class Email{
 		return true;
 
 	}
+
+	public function receiveEmails($receiverID){
+
+		$query = "
+			SELECT
+				IFNULL(subject,'No subject') as subject
+				,msg
+			FROM receivedemails
+			WHERE
+				iduser = :receiver
+		";
+
+		$args = array(
+			":receiver" => $receiverID
+		);
+
+		$stmt = $this->database->prepare($query);
+		$stmt->execute($args);
+		
+		$emailsArray = array();
+
+		while( $row = $stmt->fetch(PDO::FETCH_ASSOC) ){
+
+			array_push($emailsArray,$row);
+
+		}
+
+		return $emailsArray;
+	}
 	 
 
 }

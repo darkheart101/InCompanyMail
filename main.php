@@ -1,5 +1,10 @@
 <?php
+require_once($_SERVER['DOCUMENT_ROOT']."/incompanymail/class/class.database.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/incompanymail/class/class.email.php");
+
+
 session_start();
+$database = Database::getInstance();
 ?>
 
 <html>
@@ -130,20 +135,25 @@ session_start();
 
 						                        ';
 		                            	}else{
-			                            	for($i = 0; $i<$_SESSION['mailsums']; $i++){
-			                            		echo '
-					                            <!-- inbox item -->
+		                            		$email = new Email($database);
+		                            		$receivedEmails = $email->receiveEmails($_SESSION['idusers']);
+
+		                            		foreach ($receivedEmails as $emailRecord ) {
+												echo '
+					                            	<!-- inbox item -->
 						                            <tr>
 						                                <td>
 						                                    <label>
 						                                        <input type="checkbox">
 						                                    </label> <span class="name">Mark Otto</span></td>
-						                                <td><span class="subject">Nice work on the docs for lastest version</span> <small class="text-muted">- Joe, I just reviewed the last...</small></td>
+						                                <td><span class="subject">' . $emailRecord['subject']. '</span> <small class="text-muted">- Joe, I just reviewed the last...</small></td>
 						                                <td><span class="badge">12:10 AM</span> <span class="pull-right glyphicon glyphicon-paperclip"></span></td>
 						                            </tr>
-			                            		';
-
-			                            	}		                            		
+			                            		';		                            			
+		                            			
+		                            		}
+			                            	
+			                       		                            		
 		                            	}
 
 		                            ?>
@@ -262,7 +272,7 @@ session_start();
 				
 				var emailTo = $('#emailTo').val();
 				var emailMsg = $('#emailMsg').val();
-				
+
 				//Ajax call
 				$.ajax({
 					url: 'client/sendemail.php',
