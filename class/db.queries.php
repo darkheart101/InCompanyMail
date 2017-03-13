@@ -67,7 +67,15 @@
 				);
 			";
 
-			$database->prepare($query)->execute();		
+			$database->prepare($query)->execute();
+
+
+			$query = "
+				ALTER TABLE `$db_name`.`ReceivedEmails`
+				ADD subject VARCHAR(255) NULL;
+			";		
+
+			$database->prepare($query)->execute();
 
 
 			echo "<h1>Database changes ready</h1>";		

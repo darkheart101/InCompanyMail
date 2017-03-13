@@ -262,6 +262,7 @@ session_start();
 				
 				var emailTo = $('#emailTo').val();
 				var emailMsg = $('#emailMsg').val();
+				
 				//Ajax call
 				$.ajax({
 					url: 'client/sendemail.php',
@@ -270,9 +271,8 @@ session_start();
 					dataType:'JSON',
 					success: function(resp){
 						
-						//if username and password are correct
 						if( resp.response == "success" ){
-							console.log("SUCCESS");
+							
 							$("#myModal").modal("hide");
 							$('#emailTo').val('') ;
 							$('#emailMsg').val('') ;
@@ -286,6 +286,12 @@ session_start();
 					}
 				});//ajax	 
 			})
+
+			// Clear variables on modal close
+			$("#myModal").on("hidden.bs.modal", function () {
+			    $('#emailTo').val('') ;
+				$('#emailMsg').val('') ;
+			});			
 		</script>
 	</body>
 </html>
