@@ -61,41 +61,7 @@
 
 	$fromID = $_SESSION['idusers']; // Sender UserID
 
-	/************************************************/
-	/* 					START						*/
-	/* 			CREATE THE NEW EMAIL				*/
-	/* 												*/
-	/************************************************/
-	$query = "
-		INSERT INTO receivedemails
-		(
-			iduser
-			,fromID
-			,msg
-		)
-		VALUES
-		(	
-			:iduser
-			,:fromID
-			,:emailMsg
-		)
-	";
-
-	$stmt = $database->prepare($query);
-	
-	$args = array(
-		":iduser" => $emailTo
-		,":fromID" => $fromID
-		,":emailMsg" => $emailMsg
-	);
-
-	$stmt->execute($args);
-
-	/************************************************/
-	/* 					END 						*/
-	/* 			CREATE THE NEW EMAIL				*/
-	/* 												*/
-	/************************************************/
+	$email->sendEmail($fromID, $iduser,$emailMsg);
 
 	//Everything went well
 	$results['response'] = "success";

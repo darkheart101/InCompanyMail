@@ -14,18 +14,26 @@ class Email{
 			INSERT INTO receivedemails
 			(
 				iduser
-				,fromid
+				,fromID
 				,msg
 			)
 			VALUES
-			(
-				$receiverID
-				,$senderID
-				,$msg
+			(	
+				:iduser
+				,:fromID
+				,:emailMsg
 			)
 		";
 
-		$database->prepare($query)->execute();
+		$stmt = $this->database->prepare($query);
+		
+		$args = array(
+			":iduser" => $receiverID
+			,":fromID" => $senderID
+			,":emailMsg" => $msg
+		);
+
+		$stmt->execute($args);
 
 		return true;
 
