@@ -27,8 +27,9 @@
 		return;
 	}
 
-	$emailMsg = $_POST['emailMsg'];
-	$emailTo = $_POST['emailTo'];
+	$emailMsg 		= $_POST['emailMsg'];
+	$emailTo 		= $_POST['emailTo'];
+	$emailSubject	= $_POST['emailSubject'];
 
 	// Get UserID of the Receiver
 	$query = "
@@ -61,7 +62,7 @@
 
 	$fromID = $_SESSION['idusers']; // Sender UserID
 
-	$email->sendEmail($fromID, $iduser,$emailMsg);
+	$email->sendEmail($fromID, $iduser,$emailMsg, $emailSubject);
 
 	//Everything went well
 	$results['response'] = "success";

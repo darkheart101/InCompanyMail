@@ -48,12 +48,14 @@ $database = Database::getInstance();
 		                </ul>
 		            </div>
 		            -->
-		            <button type="button" class="btn btn-default" data-toggle="tooltip" title="Refresh">
+		            <button type="button" class="btn btn-default" data-toggle="tooltip" title="Refresh"  onClick="window.location.reload()" >
 		                <span class="glyphicon glyphicon-refresh"></span> </button>
 		            <div class="btn-group">
+		                <!--
 		                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 		                    More <span class="caret"></span>
 		                </button>
+		               	-->
 		                <ul class="dropdown-menu" role="menu">
 		                    <li><a href="#">Mark all as read</a></li>
 		                    <li class="divider"></li>
@@ -88,16 +90,19 @@ $database = Database::getInstance();
 		                <li><a href="#"><span class="badge pull-right">3</span>Drafts</a></li>
 		            </ul>
 		            <hr>
+		            <!--
 		            <div class="storage">
 		                <small>2.85 GB of <strong>15 GB</strong></small>
 		                <div class="progress progress-sm">
 		                    <div class="progress-bar progress-bar-primary" style="width:30%;"></div>
 		                </div>
 		            </div>
+		            -->
 		        </aside>
 		        <!--main-->
 		        <div class="col-sm-9 col-md-10">
 		            <!-- tabs -->
+		            <!--
 		            <ul class="nav nav-tabs">
 		                <li class="active"><a href="#home" data-toggle="tab"><span class="glyphicon glyphicon-inbox">
 		                </span>Primary</a></li>
@@ -106,6 +111,7 @@ $database = Database::getInstance();
 		                <li><a href="#settings" data-toggle="tab"><span class="glyphicon glyphicon-plus no-margin">
 		                </span></a></li>
 		            </ul>
+		            -->
 		            <!-- tab panes -->
 		            <div class="tab-content">
 		                <div class="tab-pane fade in active" id="inbox">
@@ -231,6 +237,8 @@ $database = Database::getInstance();
 											<fieldset class="form-group">
 												<label for="emailTo">To:</label>
 												<input id="emailTo" type="text" name="emailTo">
+												<label for="emailTo">Subject:</label>
+												<input id="emailSubject" type="text" name="emailSubject">
 
 												<textarea id="emailMsg" class="form-control" name="editstatus" id="editstatus" rows="3"></textarea>
 											</fieldset>
@@ -252,6 +260,7 @@ $database = Database::getInstance();
 							 -->							
 
 		                </div>
+		                <!--
 		                <div class="tab-pane fade in" id="profile">
 		                    <div class="list-group">
 		                        <div class="list-group-item">
@@ -259,7 +268,9 @@ $database = Database::getInstance();
 		                        </div>
 		                    </div>
 		                </div>
+		                -->
 		            </div>
+		            <!--
 		            <div class="row-md-12">
 
 		                <div class="well text-right">
@@ -267,6 +278,7 @@ $database = Database::getInstance();
 		                </div>
 
 		            </div>
+		            -->
 		        </div>
 		    </div>
 		</div>	
@@ -277,22 +289,24 @@ $database = Database::getInstance();
 				event.preventDefault();
 				
 				
-				var emailTo = $('#emailTo').val();
-				var emailMsg = $('#emailMsg').val();
+				var emailTo 		= $('#emailTo').val();
+				var emailMsg 		= $('#emailMsg').val();
+				var emailSubject 	= $('#emailSubject').val();
 
 				//Ajax call
 				$.ajax({
 					url: 'client/sendemail.php',
 					type: 'POST',
-					data: {emailTo : emailTo, emailMsg : emailMsg},
+					data: {emailTo : emailTo, emailMsg : emailMsg, emailSubject: emailSubject},
 					dataType:'JSON',
 					success: function(resp){
-						
+						console.log("success")
 						if( resp.response == "success" ){
 							
 							$("#myModal").modal("hide");
 							$('#emailTo').val('') ;
 							$('#emailMsg').val('') ;
+							$('#emailSubject').val('') ;
 						}
 
 						if(resp.response == "fail"){

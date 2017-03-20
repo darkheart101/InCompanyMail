@@ -8,7 +8,7 @@ class Email{
 		$this->database = $db;
 	}
 
-	public function sendEmail($senderID,$receiverID,$msg){
+	public function sendEmail($senderID,$receiverID,$msg,$Subject){
 
 		$query = "
 			INSERT INTO receivedemails
@@ -16,12 +16,14 @@ class Email{
 				iduser
 				,fromID
 				,msg
+				,subject
 			)
 			VALUES
 			(	
 				:iduser
 				,:fromID
 				,:emailMsg
+				,:subject
 			)
 		";
 
@@ -31,6 +33,7 @@ class Email{
 			":iduser" => $receiverID
 			,":fromID" => $senderID
 			,":emailMsg" => $msg
+			,":subject" => $Subject
 		);
 
 		$stmt->execute($args);
@@ -52,6 +55,7 @@ class Email{
 			LEFT JOIN users ON (idusers = fromID)
 			WHERE
 				iduser = :receiver
+			ORDER BY idmail DESC
 		";
 
 		$args = array(
