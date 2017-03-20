@@ -101,6 +101,36 @@
 		// END - Check the number of emails
 		//*********************************
 
+		//*****************************************
+		// START - Check the number of unrad emails
+		//*****************************************
+
+		$query = "
+			SELECT
+				COUNT(idmail) as unreadMails
+			FROM
+				receivedemails
+			WHERE
+				iduser = :iduser
+				AND
+				IFNULL(emailStatus,0) = 0
+		";
+		$stmt = $database->prepare($query);
+
+		$args = array(
+			":iduser" => $_SESSION['idusers']
+		);
+
+		$stmt->execute($args);
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+
+		$_SESSION['unreadMails'] = $row['unreadMails'];
+
+		//***************************************
+		// END - Check the number of unrad emails	
+		//***************************************
 			
 		echo json_encode($results);
 

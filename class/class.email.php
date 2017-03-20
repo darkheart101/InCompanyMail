@@ -45,7 +45,11 @@ class Email{
 			SELECT
 				IFNULL(subject,'No subject') as subject
 				,msg
+				,IFNULL(emailStatus,0) as emailStatus
+				,IFNULL(name,' - ') as name
+				,IFNULL(lastname,' - ') as lastname
 			FROM receivedemails
+			LEFT JOIN users ON (idusers = fromID)
 			WHERE
 				iduser = :receiver
 		";
@@ -61,6 +65,7 @@ class Email{
 
 		while( $row = $stmt->fetch(PDO::FETCH_ASSOC) ){
 
+			$row['senderFullName'] = $row['lastname'] . ' '.$row['name'];
 			array_push($emailsArray,$row);
 
 		}

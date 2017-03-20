@@ -81,7 +81,7 @@ $database = Database::getInstance();
 		            <button type="button" class="btn btn-danger btn-sm btn-block" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-edit"></i> Compose</button>
 		            <hr>
 		            <ul class="nav nav-pills nav-stacked">
-		                <li class="active"><a href="#"><span class="badge pull-right">32</span> Inbox </a></li>
+		                <li class="active"><a href="#"><span class="badge pull-right"><?php echo $_SESSION['unreadMails']; ?></span> Inbox </a></li>
 		                <li><a href="#">Archived</a></li>
 		                <li><a href="#">Important</a></li>
 		                <li><a href="#">Sent</a></li>
@@ -139,15 +139,22 @@ $database = Database::getInstance();
 		                            		$receivedEmails = $email->receiveEmails($_SESSION['idusers']);
 
 		                            		foreach ($receivedEmails as $emailRecord ) {
+		                            			if($emailRecord['emailStatus'] == 0)
+						                            	$unread = 'class="unread"';
+						                        else
+						                        		$unread = '';
+
 												echo '
 					                            	<!-- inbox item -->
-						                            <tr>
+						                            <tr '.
+						                            $unread
+						                            .'>
 						                                <td>
 						                                    <label>
 						                                        <input type="checkbox">
-						                                    </label> <span class="name">Mark Otto</span></td>
-						                                <td><span class="subject">' . $emailRecord['subject']. '</span> <small class="text-muted">- Joe, I just reviewed the last...</small></td>
-						                                <td><span class="badge">12:10 AM</span> <span class="pull-right glyphicon glyphicon-paperclip"></span></td>
+						                                    </label> <span class="name">'. $emailRecord['senderFullName'].'</span></td>
+						                                <td><span class="subject">' . $emailRecord['subject']. '</span> <small class="text-muted"></small></td>
+						                                <td></td>
 						                            </tr>
 			                            		';		                            			
 		                            			
