@@ -257,7 +257,36 @@ $database = Database::getInstance();
 							***	END ***
 							*	New Email Modal
 							*
-							 -->							
+							 -->
+
+							<!-- 
+							***	START ***
+							*	Read Email Modal
+							*
+							 -->
+							<div class="modal fade" id="readEmailModal" role="dialog">
+    							<div class="modal-dialog">
+    
+      								<!-- Modal content-->
+									<div class="modal-content">
+        								<div class="modal-header">
+          									<button type="button" class="close" data-dismiss="modal">&times;</button>
+          									<h4 class="modal-title">Modal Header</h4>
+        								</div>
+        								<div class="modal-body">
+          									<p>Some text in the modal.</p>
+        								</div>
+        								<div class="modal-footer">
+          									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        								</div>
+      								</div>
+								</div>
+  							</div>
+							<!-- 
+							***	END ***
+							*	Read Email Modal
+							*
+							 -->								 							
 
 		                </div>
 		                <!--
@@ -318,7 +347,10 @@ $database = Database::getInstance();
 				});//ajax	 
 			})
 
+
+			//Read email 
 			$("tr").click(function(event) {
+
         		var id = $(this).attr('id');	
 				//Ajax call
 				$.ajax({
@@ -329,9 +361,10 @@ $database = Database::getInstance();
 					success: function(resp){
 						if( resp.response == "success" ){
 							console.log(resp.data.msg)
-	
+							$("#readEmailModal").modal('show');
+							
 
-	
+
 						}
 
 						if(resp.response == "fail"){
