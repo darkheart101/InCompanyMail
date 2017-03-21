@@ -154,7 +154,7 @@ $database = Database::getInstance();
 					                            	<!-- inbox item -->
 						                            <tr '.
 						                            $unread
-						                            .'>
+						                            .' id="'. $emailRecord['idmail'] .'">
 						                                <td>
 						                                    <label>
 						                                        <input type="checkbox">
@@ -300,7 +300,7 @@ $database = Database::getInstance();
 					data: {emailTo : emailTo, emailMsg : emailMsg, emailSubject: emailSubject},
 					dataType:'JSON',
 					success: function(resp){
-						console.log("success")
+						
 						if( resp.response == "success" ){
 							
 							$("#myModal").modal("hide");
@@ -317,6 +317,30 @@ $database = Database::getInstance();
 					}
 				});//ajax	 
 			})
+
+			$("tr").click(function(event) {
+        		var id = $(this).attr('id');	
+				//Ajax call
+				$.ajax({
+					url: 'client/reademail.php',
+					type: 'POST',
+					data: {idmail : id},
+					dataType:'JSON',
+					success: function(resp){
+						if( resp.response == "success" ){
+							console.log(resp.data.msg)
+	
+
+	
+						}
+
+						if(resp.response == "fail"){
+							console.log('ERROR');
+						}
+
+					}
+				});//ajax        		
+    		});
 
 			// Clear variables on modal close
 			$("#myModal").on("hidden.bs.modal", function () {

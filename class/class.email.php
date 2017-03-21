@@ -46,7 +46,8 @@ class Email{
 
 		$query = "
 			SELECT
-				IFNULL(subject,'No subject') as subject
+				idmail
+				,IFNULL(subject,'No subject') as subject
 				,msg
 				,IFNULL(emailStatus,0) as emailStatus
 				,IFNULL(name,' - ') as name
@@ -76,6 +77,35 @@ class Email{
 
 		return $emailsArray;
 	}
+
+	public function readEmail($idmail){
+
+		$query = "
+			SELECT
+				IFNULL(subject,'No subject') as subject
+				,msg
+				,IFNULL(name,' - ') as name
+				,IFNULL(lastname,' - ') as lastname
+			FROM receivedemails
+			LEFT JOIN users ON (idusers = fromID)
+			WHERE
+				idmail = :idmail
+		";
+
+		$args = array(
+			":idmail" => $idmail
+		);
+
+		$stmt = $this->database->prepare($query);
+		$stmt->execute($args);
+		
+
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		$row['senderFullName'] = $row['lastname'] . ' '.$row['name'];
+
+
+		return $row;
+	}	
 	 
 
 }
