@@ -152,9 +152,9 @@ $database = Database::getInstance();
 
 												echo '
 					                            	<!-- inbox item -->
-						                            <tr '.
+						                            <tr  '.
 						                            $unread
-						                            .' id="'. $emailRecord['idmail'] .'">
+						                            .' data-id ="'. $emailRecord['idmail'] .'">
 						                                <td>
 						                                    <label>
 						                                        <input type="checkbox">
@@ -249,9 +249,9 @@ $database = Database::getInstance();
 												<input type="hidden" name="postide" id="postide" value="">
 											</div>
 										</form>							      		
-							    	</div>
-
-							  	</div>
+							    		</div>
+							  		</div>
+								</div>
 							</div>
 							<!-- 
 							***	END ***
@@ -271,17 +271,17 @@ $database = Database::getInstance();
 									<div class="modal-content">
         								<div class="modal-header">
           									<button type="button" class="close" data-dismiss="modal">&times;</button>
-          									<h4 class="modal-title">Modal Header</h4>
+          									<h4 class="modal-title" id="email-subject"></h4>
         								</div>
         								<div class="modal-body">
-          									<p>Some text in the modal.</p>
+          									<p  id="mail-body"></p>
         								</div>
         								<div class="modal-footer">
           									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         								</div>
       								</div>
 								</div>
-  							</div>
+  							</div>  							
 							<!-- 
 							***	END ***
 							*	Read Email Modal
@@ -350,8 +350,9 @@ $database = Database::getInstance();
 
 			//Read email 
 			$("tr").click(function(event) {
+				//$('#readEmailModal').modal({ show: false})
 
-        		var id = $(this).attr('id');	
+        		var id = $(this).attr('data-id');	
 				//Ajax call
 				$.ajax({
 					url: 'client/reademail.php',
@@ -360,13 +361,13 @@ $database = Database::getInstance();
 					dataType:'JSON',
 					success: function(resp){
 						if( resp.response == "success" ){
-							console.log(resp.data.msg)
-							$("#readEmailModal").modal('show');
+							$('#readEmailModal').modal('show');
+							console.log(resp.data)
+							$('h4#email-subject').html(resp.data.subject); // email subject
+							$('p#mail-body').html(resp.data.msg); // email body
 							
-
-
-						}
-
+							
+						}		
 						if(resp.response == "fail"){
 							console.log('ERROR');
 						}
