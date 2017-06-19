@@ -82,10 +82,12 @@ class Email{
 
 		$query = "
 			SELECT
-				IFNULL(subject,'No subject') as subject
+				idmail
+				,IFNULL(subject,'No subject') as subject
 				,msg
 				,IFNULL(name,' - ') as name
 				,IFNULL(lastname,' - ') as lastname
+				,IFNULL(emailStatus,0) as emailStatus
 			FROM receivedemails
 			LEFT JOIN users ON (idusers = fromID)
 			WHERE
@@ -101,11 +103,44 @@ class Email{
 		
 
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
-		$row['senderFullName'] = $row['lastname'] . ' '.$row['name'];
+
+		if( !empty($row) AND ($row['emailStatus'] == 0) ){
+			$query = "
+				UPDATE receivedemails SET
+					emailStatus = 1
+				WHERE
+					idmail = :idmail
+			";
+			$args = array(
+				":idmail" => $idmail
+			);
+
+			$stmt = $this->database->prepare($query);
+			$stmt->execute($args);			
+		}
+
+		$row['senderFullName'] = $row['lastname'] . ' '.$row['name'];		
 
 
 		return $row;
-	}	
+	}
+
+	public function deleteEmail($idmail){
+
+		$query = "
+			DELETE FROM receivedemails WHERE idmail = :idmail
+		";
+
+		$args = array(
+			":idmail" => $idmail
+		);
+
+		$stmt = $this->database->prepare($query);
+		$stmt->execute($args);
+		
+
+		return;
+	}			
 	 
 
 }

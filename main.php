@@ -30,32 +30,9 @@ $database = Database::getInstance();
 		            </div>
 		        </div>
 		        <div class="col-sm-9 col-md-10">
-		            <!--
-		            <div class="btn-group">
-		                <button type="button" class="btn btn-default">
-		                    <input type="checkbox" aria-label="..." style="margin:1px;">
-		                </button>
-		                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-		                    <span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
-		                </button>
-		                <ul class="dropdown-menu" role="menu">
-		                    <li><a href="#">All</a></li>
-		                    <li><a href="#">None</a></li>
-		                    <li><a href="#">Read</a></li>
-		                    <li><a href="#">Unread</a></li>
-		                    <li><a href="#">Starred</a></li>
-		                    <li><a href="#">Unstarred</a></li>
-		                </ul>
-		            </div>
-		            -->
 		            <button type="button" class="btn btn-default" data-toggle="tooltip" title="Refresh"  onClick="window.location.reload()" >
 		                <span class="glyphicon glyphicon-refresh"></span> </button>
 		            <div class="btn-group">
-		                <!--
-		                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-		                    More <span class="caret"></span>
-		                </button>
-		               	-->
 		                <ul class="dropdown-menu" role="menu">
 		                    <li><a href="#">Mark all as read</a></li>
 		                    <li class="divider"></li>
@@ -79,7 +56,6 @@ $database = Database::getInstance();
 		    <div class="row">
 		        <!--left-->
 		        <aside class="col-sm-3 col-md-2">
-		            <!--<a href="#" class="btn btn-danger btn-sm btn-block" role="button"><i class="glyphicon glyphicon-edit"></i> Compose</a>-->
 		            <button type="button" class="btn btn-danger btn-sm btn-block" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-edit"></i> Compose</button>
 		            <hr>
 		            <ul class="nav nav-pills nav-stacked">
@@ -90,28 +66,10 @@ $database = Database::getInstance();
 		                <li><a href="#"><span class="badge pull-right">3</span>Drafts</a></li>
 		            </ul>
 		            <hr>
-		            <!--
-		            <div class="storage">
-		                <small>2.85 GB of <strong>15 GB</strong></small>
-		                <div class="progress progress-sm">
-		                    <div class="progress-bar progress-bar-primary" style="width:30%;"></div>
-		                </div>
-		            </div>
-		            -->
+
 		        </aside>
 		        <!--main-->
 		        <div class="col-sm-9 col-md-10">
-		            <!-- tabs -->
-		            <!--
-		            <ul class="nav nav-tabs">
-		                <li class="active"><a href="#home" data-toggle="tab"><span class="glyphicon glyphicon-inbox">
-		                </span>Primary</a></li>
-		                <li><a href="#profile" data-toggle="tab"><span class="glyphicon glyphicon-user"></span>
-		                    Personal</a></li>
-		                <li><a href="#settings" data-toggle="tab"><span class="glyphicon glyphicon-plus no-margin">
-		                </span></a></li>
-		            </ul>
-		            -->
 		            <!-- tab panes -->
 		            <div class="tab-content">
 		                <div class="tab-pane fade in active" id="inbox">
@@ -131,6 +89,7 @@ $database = Database::getInstance();
 		                                <td></td>
 		                            </tr>
 		                            <?php
+		                            	
 		                            	if($_SESSION['mailsums'] == 0){
 		                            		echo '
 						                            <tr>
@@ -165,54 +124,8 @@ $database = Database::getInstance();
 			                            		';		                            			
 		                            			
 		                            		}
-			                            	
-			                       		                            		
 		                            	}
-
 		                            ?>
-	
-		                            <!-- inbox item -->
-		                            <!--<tr>
-		                                <td>
-		                                    <label>
-		                                        <input type="checkbox">
-		                                    </label> <span class="name">Anil Judah</span></td>
-		                                <td><span class="subject">GAE Project</span> <small class="text-muted">- Can you take a second to look..</small></td>
-		                                <td><span class="badge badge-inverse">11:33 AM</span> <span class="pull-right glyphicon glyphicon-warning-sign text-danger"></span></td>
-		                            </tr>
-		                            <tr class="unread">
-		                                <td>
-		                                    <label>
-		                                        <input type="checkbox">
-		                                    </label> <span class="name">Terry Lincoln</span></td>
-		                                <td><span class="subject">Vacation pics</span> <small class="text-muted">(this message contains images)</small></td>
-		                                <td><span class="badge">11:13 AM</span> <span class="pull-right"></span></td>
-		                            </tr>
-		                            <tr>
-		                                <td>
-		                                    <label>
-		                                        <input type="checkbox">
-		                                    </label> <span class="name">Mark Brown</span></td>
-		                                <td><span class="subject">Last call for this weekend</span> <small class="text-muted">- Hi Joe, Thanks for sending over those..</small></td>
-		                                <td><span class="badge">11:05 AM</span> <span class="pull-right"></span></td>
-		                            </tr>
-		                            <tr>
-		                                <td>
-		                                    <label>
-		                                        <input type="checkbox">
-		                                    </label> <span class="name">Jorge Anodonolgez</span></td>
-		                                <td><span class="subject">Meeting with Simco</span> <small class="text-muted">- Joe I included your contact info for the...</small></td>
-		                                <td><span class="badge">10:54 AM</span> <span class="pull-right glyphicon glyphicon-paperclip"></span></td>
-		                            </tr>
-		                            <tr>
-		                                <td>
-		                                    <label>
-		                                        <input type="checkbox">
-		                                    </label> <span class="name">Mark Otto</span></td>
-		                                <td><span class="subject">FYI: New Release</span> <small class="text-muted">this message is high priority</small></td>
-		                                <td><span class="badge">9:58 AM</span> <span class="pull-right"></span></td>
-		                            </tr>
-		                            -->
 		                        </tbody>
 		                    </table>
 
@@ -265,6 +178,7 @@ $database = Database::getInstance();
 							*
 							 -->
 							<div class="modal fade" id="readEmailModal" role="dialog">
+								<div id="idmail" class="hidden"></div>
     							<div class="modal-dialog">
     
       								<!-- Modal content-->
@@ -272,12 +186,14 @@ $database = Database::getInstance();
         								<div class="modal-header">
           									<button type="button" class="close" data-dismiss="modal">&times;</button>
           									<h4 class="modal-title" id="email-subject"></h4>
+
         								</div>
         								<div class="modal-body">
           									<p  id="mail-body"></p>
         								</div>
         								<div class="modal-footer">
           									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          						            <button type="button" class="btn btn-primary" id="delete-email">Delete</button>
         								</div>
       								</div>
 								</div>
@@ -289,29 +205,13 @@ $database = Database::getInstance();
 							 -->								 							
 
 		                </div>
-		                <!--
-		                <div class="tab-pane fade in" id="profile">
-		                    <div class="list-group">
-		                        <div class="list-group-item">
-		                            <span class="text-center">This tab folder is empty.</span>
-		                        </div>
-		                    </div>
-		                </div>
-		                -->
 		            </div>
-		            <!--
-		            <div class="row-md-12">
-
-		                <div class="well text-right">
-		                    <small>Last updated: 4/14/2015: 3:02 PM</small>
-		                </div>
-
-		            </div>
-		            -->
 		        </div>
 		    </div>
-		</div>	
+		</div>
+
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 		<script>
 			$('#sendform').submit(function() {
 				//Prevent default action
@@ -362,9 +262,10 @@ $database = Database::getInstance();
 					success: function(resp){
 						if( resp.response == "success" ){
 							$('#readEmailModal').modal('show');
-							console.log(resp.data)
+						
 							$('h4#email-subject').html(resp.data.subject); // email subject
 							$('p#mail-body').html(resp.data.msg); // email body
+							$('div#idmail').html(resp.data.idmail); // email id
 							
 							
 						}		
@@ -376,11 +277,42 @@ $database = Database::getInstance();
 				});//ajax        		
     		});
 
+			$('#readEmailModal').on('hidden.bs.modal', function () {
+			    location.reload();			    
+			})
+
+			$("#delete-email").on("click", function(e){
+				e.preventDefault(); // prevent de default action, which is to submit
+
+				var idmail = $('#idmail').text();
+				//Ajax call
+				$.ajax({
+					url: 'client/deleteemail.php',
+					type: 'POST',
+					data: {idmail : idmail},
+					dataType:'JSON',
+					success: function(resp){
+						if( resp.response == "success" ){
+							
+							
+						}		
+						if(resp.response == "fail"){
+							console.log('ERROR');
+						}
+
+					}
+				});//ajax
+			location.reload();		        
+			$(this).prev().click();
+
+			});
+
 			// Clear variables on modal close
 			$("#myModal").on("hidden.bs.modal", function () {
 			    $('#emailTo').val('') ;
 				$('#emailMsg').val('') ;
-			});			
+			});		
+			
 		</script>
 	</body>
 </html>
