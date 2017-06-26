@@ -23,9 +23,11 @@ $database = Database::getInstance();
 		                    <?php echo $_SESSION['usermail']; ?> <span class="caret"></span>
 		                </button>
 		                <ul class="dropdown-menu" role="menu">
-		                    <li><a href="#">Mail</a></li>
+		                    <li><a href="settings.php">Settings</a></li>
+		                    <!--
 		                    <li><a href="#">Contacts</a></li>
 		                    <li><a href="#">Tasks</a></li>
+		                    -->
 		                </ul>
 		            </div>
 		        </div>
