@@ -77,6 +77,7 @@ $database = Database::getInstance();
 		                <div class="tab-pane fade in active" id="inbox">
 		                    
 							<form id="savePwd"action="" method="post">
+								<input type="text" name="username" hidden value='<?php echo $_SESSION['username'] ?>' />
 								Old Password:<br>
 								<input type="text" name="oldpassword">
 								<br>
@@ -103,21 +104,40 @@ $database = Database::getInstance();
 				//Prevent default action
 				event.preventDefault();
 
+				var username 	= $('[name=username]').val();
 				var oldpwd 		= $('[name=oldpassword]').val();
 				var newpwd 		= $('[name=newpassword]').val();
 				var renewpwd 	= $('[name=newpasswordretyped]').val();
 
-				console.log(oldpwd);
-				console.log(newpwd);
-				console.log(renewpwd);
 
 				if( newpwd.localeCompare(renewpwd) == -1){
 
 					alert("Password mismatch!!!");
 					return;
 				}
+				
 
-				console.log("asdfhal;dfasdfa");
+
+				//Ajax call
+				$.ajax({
+					url: 'client/changePassword.php',
+					type: 'POST',
+					data: {username: username, oldPwd : oldpwd, newPwd : newpwd},
+					dataType:'JSON',
+					success: function(resp){
+						
+						if( resp.response == "success" ){
+							alert("Password changed successfully");
+							
+						}
+
+						if(resp.response == "fail"){
+							alert("Password Error");
+						}
+
+					}
+				});//ajax	
+
 				/*
 				var emailTo 		= $('#emailTo').val();
 				var emailMsg 		= $('#emailMsg').val();

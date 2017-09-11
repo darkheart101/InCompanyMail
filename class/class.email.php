@@ -121,7 +121,6 @@ class Email{
 
 		$row['senderFullName'] = $row['lastname'] . ' '.$row['name'];		
 
-
 		return $row;
 	}
 
