@@ -20,27 +20,17 @@
 	}	
 	$username = $_POST['username'];
 
-	if( !isset($_POST['oldPwd']) OR empty($_POST['oldPwd'])){
+	if( !isset($_POST['password']) OR empty($_POST['password'])){
 		$results['response'] = "fail";
-		$results['error_msg'] = "No oldPwd found";
+		$results['error_msg'] = "No password found";
 		$results = json_encode($results);
 		echo $results;
 		return;
 	}	
-	$oldPwd = $_POST['oldPwd'];	
-
-
-	if( !isset($_POST['newPwd']) OR empty($_POST['newPwd'])){
-		$results['response'] = "fail";
-		$results['error_msg'] = "No newPwd found";
-		$results = json_encode($results);
-		echo $results;
-		return;
-	}	
-	$newPwd = $_POST['newPwd'];	
+	$password = $_POST['password'];
 
 	
-	$results['data'] = $user->update_UserRecord($username, $oldPwd, $newPwd);
+	$results['data'] = $user->insert_new_UserRecord($username, $password);
 
 	$results['response'] = "success";
 

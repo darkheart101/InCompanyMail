@@ -61,7 +61,7 @@ $database = Database::getInstance();
 		            <button type="button" class="btn btn-danger btn-sm btn-block" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-edit"></i> Compose</button>
 		            <hr>
 		            <ul class="nav nav-pills nav-stacked">
-		                <li class="active"><a href="#"><span class="badge pull-right"><?php echo $_SESSION['unreadMails']; ?></span> Inbox </a></li>
+		                <li class="active"><a href="main.php"><span class="badge pull-right"><?php echo $_SESSION['unreadMails']; ?></span> Inbox </a></li>
 		                <li><a href="#">Archived</a></li>
 		                <li><a href="#">Important</a></li>
 		                <li><a href="#">Sent</a></li>
@@ -75,7 +75,7 @@ $database = Database::getInstance();
 		            <!-- tab panes -->
 		            <div class="tab-content">
 		                <div class="tab-pane fade in active" id="inbox">
-		                    
+		                    <h2>Change Your Password</h2>
 							<form id="savePwd"action="" method="post">
 								<input type="text" name="username" hidden value='<?php echo $_SESSION['username'] ?>' />
 								Old Password:<br>
@@ -89,7 +89,27 @@ $database = Database::getInstance();
 						  		<br><br>						  		
 						  		<input type="submit" value="Save">
 							</form> 
-
+							<hr>
+							<?php
+								if( $_SESSION['idusers'] == 0){ // Options only for administrator
+							?>
+								<h2>Create New User</h2>
+								<form id="newUser"action="" method="post">
+									
+									Username:<br>
+									<input type="text" name="newUsername">
+									<br>									
+									Password:<br>
+							  		<input type="text" name="newUserPassword">
+							  		<br><br>
+									Retype New Password:<br>
+							  		<input type="text" name="newUserPasswordRetyped">
+							  		<br><br>						  		
+							  		<input type="submit" value="Save">
+								</form> 
+							<?php
+								}
+							?>
 							
 		                </div>
 		            </div>
@@ -138,36 +158,49 @@ $database = Database::getInstance();
 					}
 				});//ajax	
 
-				/*
-				var emailTo 		= $('#emailTo').val();
-				var emailMsg 		= $('#emailMsg').val();
-				var emailSubject 	= $('#emailSubject').val();
+			})
+
+
+			// Create new User
+			$('#newUser').submit(function() {
+				//Prevent default action
+				event.preventDefault();
+
+
+				var newUsername 			= $('[name=newUsername]').val();
+				var newUserPassword 		= $('[name=newUserPassword]').val();
+				var newUserPasswordRetyped 	= $('[name=newUserPasswordRetyped]').val();
+
+
+				if( newUserPassword.localeCompare(newUserPasswordRetyped) == -1){
+
+					alert("Password missmatch!!!");
+					return;
+				}
+				
+
 
 				//Ajax call
 				$.ajax({
-					url: 'client/sendemail.php',
+					url: 'client/createNewUser.php',
 					type: 'POST',
-					data: {emailTo : emailTo, emailMsg : emailMsg, emailSubject: emailSubject},
+					data: {username: newUsername, password : newUserPassword},
 					dataType:'JSON',
 					success: function(resp){
 						
 						if( resp.response == "success" ){
+							alert("New user Created");
 							
-							$("#myModal").modal("hide");
-							$('#emailTo').val('') ;
-							$('#emailMsg').val('') ;
-							$('#emailSubject').val('') ;
 						}
 
 						if(resp.response == "fail"){
-							$('#error_msg').addClass('alert alert-danger');
-							$('#error_msg').html(resp.error_msg);
+							alert("User Creation Error!");
 						}
 
 					}
-				});//ajax	 
-				*/
-			})
+				});//ajax	
+
+			})			
 			
 		</script>
 	</body>

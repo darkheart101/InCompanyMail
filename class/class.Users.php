@@ -8,11 +8,13 @@ class Users{
 		$this->database = $db;
 	}
 
+	// Update User Password
 	public function update_UserRecord($username, $oldPwd, $newPwd){
 
 		$ret = $this->get_UserRecord($username);
 
 		if( md5($oldPwd) != $ret['password'] ){
+
 			return false;
 		}
 
@@ -32,6 +34,42 @@ class Users{
 		$stmt = $this->database->prepare($query);
 		$stmt->execute($args);		
 
+		return true;
+
+	}
+
+	// Create new User
+	public function insert_new_UserRecord($username, $password){
+		$password = md5($password);
+		$usermail = $username.'@'.$username.'.icm';
+
+
+
+
+		$query = "
+			INSERT INTO users
+			(
+				username
+				,password
+				,usermail
+			)
+			VALUES
+			(
+				:username
+				,:password
+				,:usermail
+			)
+		";
+		
+		$args = array(
+					":username"=>$username
+					,":password"=>$password
+					,":usermail"=>$usermail
+				);
+		$stmt = $this->database->prepare($query);
+		$stmt->execute($args);
+
+		return true;		
 	}
 
 	/* Gets User Record by Username */
