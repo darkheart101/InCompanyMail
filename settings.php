@@ -24,6 +24,7 @@ $database = Database::getInstance();
 		                </button>
 		                <ul class="dropdown-menu" role="menu">
 		                    <li><a href="main.php">Mail</a></li>
+		                    <li><a href="main.php">Logout</a></li>
 		                    <!--
 		                    <li><a href="#">Contacts</a></li>
 		                    <li><a href="#">Tasks</a></li>
@@ -91,7 +92,8 @@ $database = Database::getInstance();
 							</form> 
 							<hr>
 							<?php
-								if( $_SESSION['idusers'] == 0){ // Options only for administrator
+								
+								if( $_SESSION['idusers'] == 1){ // Options only for administrator
 							?>
 								<h2>Create New User</h2>
 								<form id="newUser"action="" method="post">
@@ -110,6 +112,18 @@ $database = Database::getInstance();
 							<?php
 								}
 							?>
+
+							<?php
+								
+								if( $_SESSION['idusers'] == 1){ // Options only for administrator
+							?>
+								<h2>Users List</h2>
+								<table border="1" id='userTable'>
+
+								</table>
+							<?php
+								}
+							?>							
 							
 		                </div>
 		            </div>
@@ -120,6 +134,41 @@ $database = Database::getInstance();
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 		<script>
+
+			$( document ).ready(function() {
+    			//Ajax call
+				$.ajax({
+					url: 'client/UserList.php',
+					type: 'POST',
+					//data: {username: username, oldPwd : oldpwd, newPwd : newpwd},
+					dataType:'JSON',
+					success: function(resp){
+						
+						if( resp.response == "success" ){
+							var records = resp.data.length;
+
+							var HTMLstring = '';
+							for(var i=0;i<records;i++){
+
+								HTMLstring = '<tr><td width="70px" name ='
+												+ resp.data[i].idusers + '>'
+												+ resp.data[i].idusers +' </td><td width="100px">  '
+												+ resp.data[i].username +'</td><td width="200px">'
+												+ resp.data[i].usermail +'</td></tr>';
+								$( "#userTable" ).append( HTMLstring );
+							}
+							
+						}
+
+						if(resp.response == "fail"){
+						
+						}
+
+					}
+				});//ajax
+			});
+
+
 			$('#savePwd').submit(function() {
 				//Prevent default action
 				event.preventDefault();

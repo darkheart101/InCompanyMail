@@ -99,7 +99,33 @@ class Users{
 		return $row;				
 	}
 
+	/* user List */
 
+	public  function get_UserList(){
+		$query = "
+			SELECT
+				idusers
+			    ,username
+			    ,usermail
+			    ,lastname
+			    ,name
+			FROM icmail.users
+		";
+
+		$stmt = $this->database->prepare($query);
+		$stmt->execute();
+		
+		$userArray = array();
+
+		while( $row = $stmt->fetch(PDO::FETCH_ASSOC) ){
+
+			$row['UserFullName'] = $row['lastname'] . ' '.$row['name'];
+			array_push($userArray,$row);
+
+		}
+
+		return $userArray;		
+	}
 	 
 
 }

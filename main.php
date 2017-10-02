@@ -5,6 +5,7 @@ require_once($_SERVER['DOCUMENT_ROOT']."/incompanymail/class/class.email.php");
 
 session_start();
 $database = Database::getInstance();
+
 ?>
 
 <html>
@@ -24,6 +25,7 @@ $database = Database::getInstance();
 		                </button>
 		                <ul class="dropdown-menu" role="menu">
 		                    <li><a href="settings.php">Settings</a></li>
+		                    <li><a href="main.php">Logout</a></li>
 		                    <!--
 		                    <li><a href="#">Contacts</a></li>
 		                    <li><a href="#">Tasks</a></li>
