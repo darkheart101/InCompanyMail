@@ -1,10 +1,15 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT']."/incompanymail/class/class.database.php");
 require_once($_SERVER['DOCUMENT_ROOT']."/incompanymail/class/class.email.php");
-
+require_once($_SERVER['DOCUMENT_ROOT']."/incompanymail/config.php");
 
 session_start();
 $database = Database::getInstance();
+
+//When Not Logged In
+if(empty($_SESSION) ){
+	header('Location: http://'.APP_ROOT_URL);
+}
 
 ?>
 
@@ -25,7 +30,7 @@ $database = Database::getInstance();
 		                </button>
 		                <ul class="dropdown-menu" role="menu">
 		                    <li><a href="settings.php">Settings</a></li>
-		                    <li><a href="main.php">Logout</a></li>
+		                    <li><a href="./client/logout.php">Logout</a></li>
 		                    <!--
 		                    <li><a href="#">Contacts</a></li>
 		                    <li><a href="#">Tasks</a></li>
