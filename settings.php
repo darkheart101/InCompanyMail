@@ -1,10 +1,17 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT']."/incompanymail/class/class.database.php");
 require_once($_SERVER['DOCUMENT_ROOT']."/incompanymail/class/class.email.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/incompanymail/config.php");
 
 
 session_start();
 $database = Database::getInstance();
+
+
+//When Not Logged In
+if(empty($_SESSION) ){
+	header('Location: http://'.APP_ROOT_URL);
+}
 ?>
 
 <html>
@@ -24,7 +31,7 @@ $database = Database::getInstance();
 		                </button>
 		                <ul class="dropdown-menu" role="menu">
 		                    <li><a href="main.php">Mail</a></li>
-		                    <li><a href="main.php">Logout</a></li>
+		                    <li><a href="./client/logout.php">Logout</a></li>
 		                    <!--
 		                    <li><a href="#">Contacts</a></li>
 		                    <li><a href="#">Tasks</a></li>
@@ -135,6 +142,11 @@ $database = Database::getInstance();
 
 		<script>
 
+			function editUser(UserID){
+				console.log(UserID);
+			}
+
+
 			$( document ).ready(function() {
     			//Ajax call
 				$.ajax({
@@ -150,7 +162,7 @@ $database = Database::getInstance();
 							var HTMLstring = '';
 							for(var i=0;i<records;i++){
 
-								HTMLstring = '<tr><td width="70px" name ='
+								HTMLstring = '<tr ondblclick="editUser('+resp.data[i].idusers+')"><td width="70px" name ='
 												+ resp.data[i].idusers + '>'
 												+ resp.data[i].idusers +' </td><td width="100px">  '
 												+ resp.data[i].username +'</td><td width="200px">'
@@ -166,6 +178,8 @@ $database = Database::getInstance();
 
 					}
 				});//ajax
+
+
 			});
 
 
