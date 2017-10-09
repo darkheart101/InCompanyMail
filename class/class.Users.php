@@ -98,7 +98,32 @@ class Users{
 
 		return $row;				
 	}
+	/* Gets User Record by UserID */
+	public function get_UserRecord_ByID($UserID){
+		$query = "
+			SELECT
+				idusers
+				,username
+				,password
+				,usermail
+				,lastname
+				,name
+			FROM users
+			WHERE
+				idusers = :UserID ";
 
+		$args = array(
+			":UserID" => $UserID
+		);
+
+		$stmt = $this->database->prepare($query);
+		$stmt->execute($args);
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+
+		return $row;				
+	}
 	/* user List */
 
 	public  function get_UserList(){

@@ -138,12 +138,74 @@ if(empty($_SESSION) ){
 		    </div>
 		</div>
 
+
+							<div id="UserSettings" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+
+							    
+									<div class="modal-content">
+							    		<div class="modal-header">
+							        		<button type="button" class="close" data-dismiss="modal">&times;</button>
+							        		<h4 class="modal-title">New Message</h4>
+							        		<div  id="error_msg"></div>
+							      		</div>
+							      		<div class="modal-body">
+							      		<form id="sendform">
+											<fieldset class="form-group">
+												<label for="settUser">Last Name:</label>
+												<input id="lastname" type="text" name="lastname">
+												<br/>
+												<label  for="settUser">First Name:</label>
+												<input id="name" type="text" name="name">
+												<br/>
+												<label  for="settUser">User Name:</label>
+												<input id="username" type="text" name="username">												
+												<br/>
+												<label for="settUser">User   Mail:</label>
+												<input id="usermail" type="text" name="usermail">
+											</fieldset>	
+											<div class="modal-footer">
+												<button id="send" type="submit"  class="btn btn-primary">Save</button>
+												<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+												
+												<input type="hidden" name="postide" id="postide" value="">
+											</div>
+										</form>							      		
+							    		</div>
+							  		</div>
+								</div>
+							</div>		
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 		<script>
 
 			function editUser(UserID){
-				console.log(UserID);
+				//Ajax call
+				$.ajax({
+					url: 'client/getUserRecord.php',
+					type: 'POST',
+					data: {UserID: UserID},
+					dataType:'JSON',
+					success: function(resp){
+						
+						if( resp.response == "success" ){
+							
+							$('#UserSettings').modal('show');
+							
+							
+							$('#lastname').val(resp.data.lastname)
+							$('#name').val(resp.data.name)
+							$('#username').val(resp.data.username)
+							$('#usermail').val(resp.data.usermail)
+							
+						}
+
+						if(resp.response == "fail"){
+							alert("No Record Found");
+						}
+
+					}
+				});//ajax
 			}
 
 
