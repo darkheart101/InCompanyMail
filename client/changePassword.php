@@ -40,7 +40,7 @@
 	$newPwd = $_POST['newPwd'];	
 
 	
-	$results['data'] = $user->update_UserRecord($username, $oldPwd, $newPwd);
+	$results['data'] = $user->update_UserPassword($username, $oldPwd, $newPwd);
 
 	$results['response'] = "success";
 

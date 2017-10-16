@@ -9,7 +9,7 @@ class Users{
 	}
 
 	// Update User Password
-	public function update_UserRecord($username, $oldPwd, $newPwd){
+	public function update_UserPassword($username, $oldPwd, $newPwd){
 
 		$ret = $this->get_UserRecord($username);
 
@@ -150,6 +150,46 @@ class Users{
 		}
 
 		return $userArray;		
+	}
+
+	public  function update_UserRecord($params,$UserID){
+
+		$name = "";
+		
+		if(isset($params['name']) ){
+			$name = $params['name'];
+		}
+
+		$lastname = "";
+		if(isset($params['lastname']) ){
+			$lastname = $params['lastname'];
+		}
+
+		$usermail = "";
+		if(isset($params['usermail']) ){
+			$usermail = $params['usermail'];
+		}
+
+		$query = "
+			UPDATE users SET
+				lastname 	= :lastname
+				,name 		= :name
+				,usermail 	= :usermail
+			WHERE
+				idusers = :UserID
+		";
+
+		$args = array(
+			":lastname" => $lastname
+			,":name" => $name
+			,":usermail" => $usermail
+			,":UserID" => $UserID
+		);
+		$stmt = $this->database->prepare($query);
+		$stmt->execute($args);		
+
+		return true;
+
 	}
 	 
 
