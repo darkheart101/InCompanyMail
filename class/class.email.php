@@ -4,10 +4,17 @@ class Email{
 
 	protected $database;
 
+
+	/************************************************************
+	* Constructor
+	*************************************************************/
 	public function __construct(PDO $db){
 		$this->database = $db;
 	}
 
+	/************************************************************
+	* Send Email Function
+	*************************************************************/
 	public function sendEmail($senderID,$receiverID,$msg,$Subject){
 
 		$query = "
@@ -42,6 +49,9 @@ class Email{
 
 	}
 
+	/************************************************************
+	* Receive Email Function
+	*************************************************************/
 	public function receiveEmails($receiverID){
 
 		$query = "
@@ -78,6 +88,9 @@ class Email{
 		return $emailsArray;
 	}
 
+	/************************************************************
+	* Read Email Function
+	*************************************************************/
 	public function readEmail($idmail){
 
 		$query = "
@@ -124,6 +137,9 @@ class Email{
 		return $row;
 	}
 
+	/************************************************************
+	* Delete Email Function
+	*************************************************************/
 	public function deleteEmail($idmail){
 
 		$query = "

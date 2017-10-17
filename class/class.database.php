@@ -5,7 +5,9 @@ class Database{
 
 	protected static $db;
 	 
-	//private construct - class cannot be instatiated externally.
+	/************************************************************
+	* Constructor
+	*************************************************************/
 	private function __construct() {
 
 		try {
@@ -20,7 +22,9 @@ class Database{
 	 
 	}
 	 
-
+	/************************************************************
+	* getInstance Function
+	*************************************************************/
 	public static function getInstance() {
 		 
 		if (!self::$db) {

@@ -8,7 +8,9 @@ class Users{
 		$this->database = $db;
 	}
 
-	// Update User Password
+	/************************************************************
+	* Update Password
+	*************************************************************/
 	public function update_UserPassword($username, $oldPwd, $newPwd){
 
 		$ret = $this->get_UserRecord($username);
@@ -38,13 +40,12 @@ class Users{
 
 	}
 
-	// Create new User
+	/************************************************************
+	* Create New User
+	*************************************************************/
 	public function insert_new_UserRecord($username, $password){
 		$password = md5($password);
 		$usermail = $username.'@'.$username.'.icm';
-
-
-
 
 		$query = "
 			INSERT INTO users
@@ -72,7 +73,9 @@ class Users{
 		return true;		
 	}
 
-	/* Gets User Record by Username */
+	/************************************************************
+	* Get User Record Function
+	*************************************************************/
 	public function get_UserRecord($username){
 		$query = "
 			SELECT
@@ -98,7 +101,9 @@ class Users{
 
 		return $row;				
 	}
-	/* Gets User Record by UserID */
+	/************************************************************
+	* Get User Record by UserID Function
+	*************************************************************/
 	public function get_UserRecord_ByID($UserID){
 		$query = "
 			SELECT
@@ -124,8 +129,10 @@ class Users{
 
 		return $row;				
 	}
-	/* user List */
 
+	/************************************************************
+	* Get List With Users
+	*************************************************************/
 	public  function get_UserList(){
 		$query = "
 			SELECT
@@ -152,6 +159,9 @@ class Users{
 		return $userArray;		
 	}
 
+	/************************************************************
+	* Update User Function
+	*************************************************************/
 	public  function update_UserRecord($params,$UserID){
 
 		$name = "";
@@ -189,10 +199,8 @@ class Users{
 		$stmt->execute($args);		
 
 		return true;
-
 	}
 	 
-
 }
 
 ?>

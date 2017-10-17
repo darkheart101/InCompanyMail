@@ -66,14 +66,18 @@ if(empty($_SESSION) ){
 		    <div class="row">
 		        <!--left-->
 		        <aside class="col-sm-3 col-md-2">
-		            <button type="button" class="btn btn-danger btn-sm btn-block" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-edit"></i> Compose</button>
+		            <!-- 
+		            <button type="button" class="btn btn-danger btn-sm btn-block" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-edit"></i> Compose</button> 
+		        	-->
 		            <hr>
 		            <ul class="nav nav-pills nav-stacked">
+		               <!--  
 		                <li class="active"><a href="main.php"><span class="badge pull-right"><?php echo $_SESSION['unreadMails']; ?></span> Inbox </a></li>
-		                <li><a href="#">Archived</a></li>
+		               	<li><a href="#">Archived</a></li>
 		                <li><a href="#">Important</a></li>
 		                <li><a href="#">Sent</a></li>
-		                <li><a href="#"><span class="badge pull-right">3</span>Drafts</a></li>
+		                <li><a href="#"><span class="badge pull-right">3</span>Drafts</a></li> 
+		            	-->
 		            </ul>
 		            <hr>
 

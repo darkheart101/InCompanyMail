@@ -69,10 +69,12 @@ if(empty($_SESSION) ){
 		            <hr>
 		            <ul class="nav nav-pills nav-stacked">
 		                <li class="active"><a href="#"><span class="badge pull-right"><?php echo $_SESSION['unreadMails']; ?></span> Inbox </a></li>
-		                <li><a href="#">Archived</a></li>
+		               <!--  
+		               	<li><a href="#">Archived</a></li>
 		                <li><a href="#">Important</a></li>
 		                <li><a href="#">Sent</a></li>
-		                <li><a href="#"><span class="badge pull-right">3</span>Drafts</a></li>
+		                <li><a href="#"><span class="badge pull-right">3</span>Drafts</a></li> 
+		            	-->
 		            </ul>
 		            <hr>
 
@@ -157,12 +159,15 @@ if(empty($_SESSION) ){
 							      		<div class="modal-body">
 							      		<form id="sendform">
 											<fieldset class="form-group">
-												<label for="emailTo">To:</label>
+												<label for="emailTo" style="padding-right:40px;">To</label>
 												<input id="emailTo" type="text" name="emailTo">
+												<br/>
 												<label for="emailTo">Subject:</label>
 												<input id="emailSubject" type="text" name="emailSubject">
 
-												<textarea id="emailMsg" class="form-control" name="editstatus" id="editstatus" rows="3"></textarea>
+												<!-- <textarea id="emailMsg" class="form-control" name="editstatus" id="editstatus" rows="3"></textarea> -->
+												<textarea id="emailMsg" class="form-control" name="editstatus" style="margin-top:10px;" rows="3">
+												</textarea>
 											</fieldset>
 											<div class="modal-footer">
 												<button id="send" type="submit"  class="btn btn-primary">Send</button>
